@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { StyleSheet, View, Alert } from "react-native";
 
 import { Header } from "../components/Header";
-import { Task, TasksList } from "../components/TasksList";
+import { Task } from "../components/TaskItem";
+import { TasksList } from "../components/TasksList";
 import { TodoInput } from "../components/TodoInput";
 
 export function Home() {
@@ -57,6 +58,21 @@ export function Home() {
     );
   }
 
+  function handleEditTask(id: number, taskNewTitle: string) {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === id) {
+        return {
+          ...task,
+          title: taskNewTitle,
+        };
+      }
+
+      return task;
+    });
+
+    setTasks(updatedTasks);
+  }
+
   return (
     <View style={styles.container}>
       <Header tasksCounter={tasks.length} />
@@ -67,6 +83,7 @@ export function Home() {
         tasks={tasks}
         toggleTaskDone={handleToggleTaskDone}
         removeTask={askToRemoveTask}
+        editTask={handleEditTask}
       />
     </View>
   );
