@@ -44,6 +44,19 @@ export function Home() {
     setTasks((oldTasks) => oldTasks.filter((task) => task.id !== id));
   }
 
+  function askToRemoveTask(id: number) {
+    Alert.alert(
+      "Remover item",
+      "Tem certeza que você deseja remover esse item?",
+      [
+        {
+          text: "Não",
+        },
+        { text: "Sim", onPress: () => handleRemoveTask(id) },
+      ]
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Header tasksCounter={tasks.length} />
@@ -53,7 +66,7 @@ export function Home() {
       <TasksList
         tasks={tasks}
         toggleTaskDone={handleToggleTaskDone}
-        removeTask={handleRemoveTask}
+        removeTask={askToRemoveTask}
       />
     </View>
   );
